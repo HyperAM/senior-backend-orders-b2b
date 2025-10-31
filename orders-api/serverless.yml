@@ -1,0 +1,20 @@
+service: orders-api
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  createOrder: # Nombre de la función
+    handler: handler.createOrder # Apunta a tu función de creación de orden
+    events:
+      - http:
+          path: orders # <--- ESTO ES CRÍTICO
+          method: post

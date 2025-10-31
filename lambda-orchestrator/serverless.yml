@@ -1,0 +1,30 @@
+service: lambda-orchestrator
+
+frameworkVersion: '3' # Usaremos la versión 3 (o 4 si tu CLI lo requiere)
+
+provider:
+  name: aws
+  runtime: nodejs18.x # Versión estable soportada por Serverless Offline
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-offline # Simula AWS Lambda y API Gateway localmente
+  - serverless-dotenv-plugin # Lee el archivo .env
+
+# Aquí definimos la función (Lambda)
+functions:
+  createAndConfirmOrder:
+    handler: handler.orchestrate # Llama a la función 'orchestrate' en el archivo 'handler.js'
+    events:
+      - http:
+          path: orchestrator/create-and-confirm-order # <--- ¡CORRECCIÓN CLAVE! Sin barra inicial (/)
+          method: post
+          cors: true # Permite llamadas desde diferentes orígenes (Postman, front-end)
+
+custom:
+  serverless-offline:
+    httpPort: 3003 
+    websocketPort: 3003
+    apiKeyPort: 3003
+    lambdaPort: 3004   # ✅ Añadido para evitar conflictos con el puerto 3002

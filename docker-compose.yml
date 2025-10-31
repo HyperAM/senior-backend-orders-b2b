@@ -1,0 +1,20 @@
+version: '3.8' # (Puedes borrar esta línea si quieres)
+
+services:
+  mysql-db-container:
+    image: mysql:8.0
+    container_name: mysql-db-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword
+      MYSQL_DATABASE: mi_tienda_b2b
+      MYSQL_ROOT_HOST: '%' # <-- ¡AÑADE ESTA LÍNEA!
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
