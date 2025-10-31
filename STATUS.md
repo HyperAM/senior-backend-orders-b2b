@@ -5,6 +5,4 @@ Servicios Operacionales: La base de datos MySQL y los contenedores de las APIs s
 
 Punto de Bloqueo: El desarrollo se detuvo en la etapa de conexión inicial a la base de datos desde el servicio customers-api.
 
-Problema Específico: [Describe el error exacto que recibiste en la consola al intentar conectar la base de datos] (Ej: Error: Access denied for user 'root'@'...' o ECONNREFUSED al intentar iniciar la API).
-
 Notas: Se requiere una depuración fina de las variables de entorno (DB_HOST, DB_USER) y el driver de Node.js para MySQL dentro del contenedor de la customers-api.
